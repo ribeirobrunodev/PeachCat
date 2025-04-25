@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body {
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background-color: #111;
+  position: relative;
+  z-index: 0;
+}
+
+.hud {
+  position: absolute;
+  top: 20px;
+  z-index: 5;
+  color: white;
+  font-size: 2rem;
+}
+
+.menu-screen {
+  position: absolute;
+  top: 40%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  color: white;
+}
+
+.mobile-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  gap: 10px;
+}
+
+.mobile-controls button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 24px;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+  }
+}
+
+
+
+.game-over {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.final-score {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.btn-play {
+    border: none;
+    border-radius: 100px;
+    padding: 10px 15px 10px 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+
+   .cat-gif {
+  position: absolute;
+  top: 150px;
+  left: 300px;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+}
+
+}

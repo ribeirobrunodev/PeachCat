@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peach Cat💘</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./src/CSS/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #191919;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+        }
+
+        canvas {
+            background-color: #111;
+        }
+
+        .score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+
+        .score--value {
+            font-weight: 700;
+            font-size: 4.5rem;
+            display: block;
+            margin-top: -10px;
+        }
+
+        .menu-screen {
+            position: absolute;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .game-over {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 3rem;
+        }
+
+        .final-score {
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+
+        .btn-play {
+            border: none;
+            border-radius: 100px;
+            padding: 10px 15px 10px 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-controls {
+            position: absolute;
+            bottom: 9px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .mobile-controls button {
+            width: 50px;
+            height: 50px;
+            font-size: 1rem;
+            border-radius: 10%;
+            border: none;
+            background-color: #c02424;
+            color: white;
+            cursor: pointer;
+            
+        
+           
+        }
+
+        .mobile-controls div {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hud">
+      <div class="score">😍Score: <span class="score--value">00</span></div>
+    </div>
+  
+    <canvas width="600" height="600"></canvas>
+    <img src="./src/assets/gat6.gif" style="position: absolute; top: 465px; left: 340px; width: 30px; height: 30px;">
+    <img src="./src/assets/cat.dance.gif" style="position: absolute; top: 380px; left: 600px; width: 30px; height: 30px;">
+    <img src="./src/assets/cat6.gif" style="position: absolute; top: 500px; left: 1250px; width: 30px; height: 30px;">
+    <img src="./src/assets/cat2.gif" style="position: absolute; top: 350px; left: 300px; width: 30px; height: 30px;">
+    
+    <div class="menu-screen">
+      <span class="game-over">☠️Game Over☠️</span>
+      <span class="final-score">Pontuação: <span>00</span></span>
+      <button class="btn-play">Jogar novamente😘</button>
+    </div>
+  
+    <div class="mobile-controls">
+      <button onclick="move('up')">↑</button>
+      <div>
+        <button onclick="move('left')">←</button>
+        <button onclick="move('down')">↓</button>
+        <button onclick="move('right')">→</button>
+      </div>
+    </div>
+  </body>
+  
+    <script src="./src/js/script.js"></script>
+</body>
+</html>
+
