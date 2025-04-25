@@ -21,7 +21,7 @@ body {
 
 canvas {
   width: 90vw;
-  height: 90vh;
+  height: 80vh;
   display: block;
   background-color: #111;
   position: relative;
