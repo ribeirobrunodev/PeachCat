@@ -5,9 +5,8 @@ const score = document.querySelector(".score--value");
 const finalScore = document.querySelector(".final-score > span");
 const menu = document.querySelector(".menu-screen");
 const buttonPlay = document.querySelector(".btn-play");
-const mobileControls = document.querySelector(".mobile-controls"); // ✅ Seleciona os controles mobile
+const mobileControls = document.querySelector(".mobile-controls");
 
-// ✅ Caminho corrigido
 const audio = new Audio("./src/assets/audio.mp3");
 
 const size = 30;
@@ -17,7 +16,6 @@ let snake = [initialPosition];
 let direction;
 let loopId;
 
-// ✅ Imagem do gato (cobra)
 const catImg = new Image();
 catImg.src = "./src/assets/gat2.gif";
 let catAnimation;
@@ -28,27 +26,34 @@ gifler('./src/assets/cat.dance.gif').get(anim => {
     catAnimation.start();
 });
 
-
-// ✅ Imagem do fundo
 const background = new Image();
 background.src = "./src/assets/tela.jpeg";
 
-const randomNumber = (min, max) => {
-    return Math.round(Math.random() * (max - min) + min);
-};
+const aspectRatio = 600 / 600; // Proporção do canvas (largura / altura)
 
-const randomPosition = () => {
-    const number = randomNumber(0, canvas.width - size);
-    return Math.round(number / size) * size;
-};
+function resizeCanvas() {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
+    if (windowWidth / windowHeight > aspectRatio) {
+        canvas.height = windowHeight;
+        canvas.width = windowHeight * aspectRatio;
+    } else {
+        canvas.width = windowWidth;
+        canvas.height = windowWidth / aspectRatio;
+    }
 
-const randomColor = () => {
-    const red = randomNumber(0, 255);
-    const green = randomNumber(0, 255);
-    const blue = randomNumber(0, 255);
-    return `rgb(${red}, ${green}, ${blue})`;
-};
+    const scaleX = canvas.width / 600;
+    const scaleY = canvas.height / 600;
+    ctx.setTransform(scaleX, 0, 0, scaleY, 0, 0); // Redefine a transformação
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const randomNumber = (min, max) => Math.round(Math.random() * (max - min) + min);
+const randomPosition = () => Math.round(randomNumber(0, canvas.width - size) / size) * size;
+const randomColor = () => `rgb(${randomNumber(0, 255)}, ${randomNumber(0, 255)}, ${randomNumber(0, 255)})`;
 
 const food = {
     x: randomPosition(),
@@ -56,41 +61,32 @@ const food = {
     color: randomColor()
 };
 
-const drawBackground = () => {
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-};
-
-const drawFood = () => {
-    ctx.drawImage(catImg, food.x, food.y, size, size);
-};
-
-const drawSnake = () => {
-    snake.forEach((position) => {
-        ctx.drawImage(catImg, position.x, position.y, size, size);
-    });
-};
+const drawBackground = () => ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+const drawFood = () => ctx.drawImage(catImg, food.x, food.y, size, size);
+const drawSnake = () => snake.forEach(position => ctx.drawImage(catImg, position.x, position.y, size, size));
 
 const moveSnake = () => {
     if (!direction) return;
     const head = snake[snake.length - 1];
+    let newHead;
 
-    if (direction === "right") snake.push({ x: head.x + size, y: head.y });
-    if (direction === "left") snake.push({ x: head.x - size, y: head.y });
-    if (direction === "down") snake.push({ x: head.x, y: head.y + size });
-    if (direction === "up") snake.push({ x: head.x, y: head.y - size });
+    if (direction === "right") newHead = { x: head.x + size, y: head.y };
+    if (direction === "left") newHead = { x: head.x - size, y: head.y };
+    if (direction === "down") newHead = { x: head.x, y: head.y + size };
+    if (direction === "up") newHead = { x: head.x, y: head.y - size };
 
+    snake.push(newHead);
     snake.shift();
 };
 
 const drawGrid = () => {
     ctx.lineWidth = 1;
     ctx.strokeStyle = "#191919";
-    for (let i = 30; i < canvas.width; i += 30) {
+    for (let i = size; i < canvas.width; i += size) {
         ctx.beginPath();
         ctx.lineTo(i, 0);
         ctx.lineTo(i, canvas.height);
         ctx.stroke();
-
         ctx.beginPath();
         ctx.lineTo(0, i);
         ctx.lineTo(canvas.width, i);
@@ -98,9 +94,7 @@ const drawGrid = () => {
     }
 };
 
-const incrementScore = () => {
-    score.innerText = +score.innerText + 10;
-};
+const incrementScore = () => score.innerText = +score.innerText + 10;
 
 const checkEat = () => {
     const head = snake[snake.length - 1];
@@ -108,17 +102,8 @@ const checkEat = () => {
         incrementScore();
         snake.push({ ...head });
         audio.play();
-
-        let x = randomPosition();
-        let y = randomPosition();
-
-        while (snake.some(pos => pos.x === x && pos.y === y)) {
-            x = randomPosition();
-            y = randomPosition();
-        }
-
-        food.x = x;
-        food.y = y;
+        food.x = randomPosition();
+        food.y = randomPosition();
         food.color = randomColor();
     }
 };
@@ -127,17 +112,9 @@ const checkCollision = () => {
     const head = snake[snake.length - 1];
     const canvasLimit = canvas.width - size;
     const neckIndex = snake.length - 2;
-
-    const wallCollision =
-        head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit;
-
-    const selfCollision = snake.some((position, index) => {
-        return index < neckIndex && position.x === head.x && position.y === head.y;
-    });
-
-    if (wallCollision || selfCollision) {
-        gameOver();
-    }
+    const wallCollision = head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit;
+    const selfCollision = snake.some((position, index) => index < neckIndex && position.x === head.x && position.y === head.y);
+    if (wallCollision || selfCollision) gameOver();
 };
 
 const gameOver = () => {
@@ -149,26 +126,24 @@ const gameOver = () => {
 
 const gameLoop = () => {
     clearInterval(loopId);
-
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reseta a transformação para limpar corretamente
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    resizeCanvas(); // Aplica o redimensionamento no início de cada loop
     drawBackground();
-    //drawGrid()
+    // drawGrid();
     drawFood();
     moveSnake();
     drawSnake();
     checkEat();
     checkCollision();
-
     loopId = setTimeout(gameLoop, 200);
 };
 
-// 🎮 Começa o jogo
 gameLoop();
 
 let touchStartX = null;
 let touchStartY = null;
 
-// ✅ Event listeners para toque
 canvas.addEventListener('touchstart', handleTouchStart);
 canvas.addEventListener('touchmove', handleTouchMove);
 canvas.addEventListener('touchend', handleTouchEnd);
@@ -183,31 +158,20 @@ function handleTouchStart(event) {
 function handleTouchMove(event) {
     if (!touchStartX || !touchStartY) return;
     event.preventDefault();
-
     const touch = event.touches[0];
     const touchEndX = touch.clientX;
     const touchEndY = touch.clientY;
-
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-
-    const sensitivity = 20; // Ajuste a sensibilidade do swipe
+    const sensitivity = 20;
 
     if (Math.abs(deltaX) > sensitivity || Math.abs(deltaY) > sensitivity) {
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Movimento horizontal
-            if (deltaX > 0 && direction !== "left") {
-                direction = "right";
-            } else if (deltaX < 0 && direction !== "right") {
-                direction = "left";
-            }
+            if (deltaX > 0 && direction !== "left") direction = "right";
+            else if (deltaX < 0 && direction !== "right") direction = "left";
         } else {
-            // Movimento vertical
-            if (deltaY > 0 && direction !== "up") {
-                direction = "down";
-            } else if (deltaY < 0 && direction !== "down") {
-                direction = "up";
-            }
+            if (deltaY > 0 && direction !== "up") direction = "down";
+            else if (deltaY < 0 && direction !== "down") direction = "up";
         }
         touchStartX = null;
         touchStartY = null;
@@ -219,7 +183,6 @@ function handleTouchEnd(event) {
     touchStartY = null;
 }
 
-// 🎮 Direções com o teclado
 document.addEventListener("keydown", ({ key }) => {
     if (key === "ArrowRight" && direction !== "left") direction = "right";
     if (key === "ArrowLeft" && direction !== "right") direction = "left";
@@ -234,7 +197,6 @@ function move(dir) {
     if (dir === "right" && direction !== "left") direction = "right";
 }
 
-// ▶️ Botão "Jogar novamente"
 buttonPlay.addEventListener("click", () => {
     score.innerText = "00";
     menu.style.display = "none";
@@ -244,16 +206,11 @@ buttonPlay.addEventListener("click", () => {
     gameLoop();
 });
 
-// ✅ Exibe os controles mobile se a tela for pequena
 function checkMobile() {
     if (window.innerWidth <= 768) {
-        if (mobileControls) {
-            mobileControls.style.display = "flex";
-        }
+        if (mobileControls) mobileControls.style.display = "flex";
     } else {
-        if (mobileControls) {
-            mobileControls.style.display = "none";
-        }
+        if (mobileControls) mobileControls.style.display = "none";
     }
 }
 
