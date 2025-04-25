@@ -6,6 +6,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+
 body {
     background-color: #000;
     margin: 0;
@@ -16,79 +17,75 @@ body {
     align-items: center;
     flex-direction: column;
     position: relative;
-    overflow-x: hidden;
-  }
+    overflow: hidden; /* Esconde barras de rolagem */
+}
 
 canvas {
-  width: 97vw;
-  height: 89vh;
-  display: block;
-  background-color: #111;
-  position: relative;
-  z-index: 0;
+    display: block;
+    background-color: #111;
+    position: fixed; /* Garante que o canvas cubra a tela */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ocupa 100% da largura da viewport */
+    height: 100vh; /* Ocupa 100% da altura da viewport */
+    z-index: 0;
 }
 
 .hud {
-  position: absolute;
-  top: 20px;
-  z-index: 5;
-  color: white;
-  font-size: 2rem;
+    position: absolute;
+    top: 20px;
+    z-index: 5;
+    color: white;
+    font-size: 2rem;
 }
 
 .menu-screen {
-  position: absolute;
-  top: 40%;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-  color: white;
+    position: absolute;
+    top: 40%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    color: white;
 }
 
 .mobile-controls {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-  gap: 10px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    gap: 10px;
 }
 
 .mobile-controls button {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 24px;
-  border-radius: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 24px;
+    border-radius: 10px;
 }
+
 @media (max-width: 480px) {
-  canvas {
-    width: 100vw; /* Ocupa toda a largura em telas muito pequenas */
-    height: 70vh; /* Ajusta a altura para deixar mais espaço para controles */
-  }
+    .mobile-controls {
+        bottom: 10px;
+    }
 
-  .mobile-controls {
-    bottom: 10px; /* Ajusta a posição dos controles em telas menores */
-  }
-
-  .mobile-controls button {
-    padding: 8px 12px;
-    font-size: 20px;
-  }
+    .mobile-controls button {
+        padding: 8px 12px;
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 768px) {
-  .mobile-controls {
-    display: flex;
-  }
+    .mobile-controls {
+        display: flex;
+    }
 }
-
-
 
 .game-over {
     text-transform: uppercase;
@@ -114,14 +111,4 @@ canvas {
     justify-content: center;
     gap: 5px;
     cursor: pointer;
-
-   .cat-gif {
-  position: absolute;
-  top: 150px;
-  left: 300px;
-  width: 30px;
-  height: 30px;
-  pointer-events: none;
-}
-
 }

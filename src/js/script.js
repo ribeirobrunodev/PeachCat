@@ -29,7 +29,7 @@ gifler('./src/assets/cat.dance.gif').get(anim => {
 const background = new Image();
 background.src = "./src/assets/tela.jpeg";
 
-const aspectRatio = 600 / 600; // Proporção do canvas (largura / altura)
+const aspectRatio = 600 / 600; // Proporção do canvas
 
 function resizeCanvas() {
     const windowWidth = window.innerWidth;
@@ -45,11 +45,13 @@ function resizeCanvas() {
 
     const scaleX = canvas.width / 600;
     const scaleY = canvas.height / 600;
-    ctx.setTransform(scaleX, 0, 0, scaleY, 0, 0); // Redefine a transformação
+    ctx.setTransform(scaleX, 0, 0, scaleY, 0, 0);
 }
 
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
+
+// ... restante do seu código JavaScript ...
 
 const randomNumber = (min, max) => Math.round(Math.random() * (max - min) + min);
 const randomPosition = () => Math.round(randomNumber(0, canvas.width - size) / size) * size;
