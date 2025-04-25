@@ -8,28 +8,30 @@
 }
 
 body {
-    background-color: #000;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden; /* Esconde barras de rolagem */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+
 canvas {
-    display: block;
-    background-color: #111;
-    position: fixed; /* Garante que o canvas cubra a tela */
-    top: 0;
-    left: 0;
-    width: 100vw; /* Ocupa 100% da largura da viewport */
-    height: 100vh; /* Ocupa 100% da altura da viewport */
-    z-index: 0;
+  display: block;
+  background-color: #111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  touch-action: none; /* Previne o zoom/pan padrão do navegador em mobile */
 }
+
 
 .hud {
     position: absolute;
