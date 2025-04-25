@@ -20,8 +20,8 @@ body {
   }
 
 canvas {
-  width: 90vw;
-  height: 80vh;
+  width: 97vw;
+  height: 89vh;
   display: block;
   background-color: #111;
   position: relative;
@@ -65,6 +65,21 @@ canvas {
   padding: 10px 15px;
   font-size: 24px;
   border-radius: 10px;
+}
+@media (max-width: 480px) {
+  canvas {
+    width: 100vw; /* Ocupa toda a largura em telas muito pequenas */
+    height: 70vh; /* Ajusta a altura para deixar mais espaço para controles */
+  }
+
+  .mobile-controls {
+    bottom: 10px; /* Ajusta a posição dos controles em telas menores */
+  }
+
+  .mobile-controls button {
+    padding: 8px 12px;
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 768px) {
