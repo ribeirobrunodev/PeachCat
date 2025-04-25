@@ -1,115 +1,104 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppings", sans-serif;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  background-color: #191919;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height: 100vh;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  color: rgb(68, 194, 52);
 }
-
 
 canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
   background-color: #111;
+  width: 100%;
+  max-width: 500px; /* limite para telas grandes */
+  aspect-ratio: 1 /1; /* mantém proporção quadrada */
+  height: auto;
 }
 
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.8rem;
+}
 
-.hud {
-    position: absolute;
-    top: 20px;
-    z-index: 5;
-    color: white;
-    font-size: 2rem;
+.score--value {
+  font-weight: 700;
+  font-size: 4.5rem;
+  display: block;
+  margin-top: -10px;
 }
 
 .menu-screen {
-    position: absolute;
-    top: 40%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-    color: white;
-}
-
-.mobile-controls {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-    gap: 10px;
-}
-
-.mobile-controls button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 24px;
-    border-radius: 10px;
-}
-
-@media (max-width: 480px) {
-    .mobile-controls {
-        bottom: 10px;
-    }
-
-    .mobile-controls button {
-        padding: 8px 12px;
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .mobile-controls {
-        display: flex;
-    }
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
 }
 
 .game-over {
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 3rem;
 }
 
 .final-score {
-    font-weight: 500;
-    font-size: 1.5rem;
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 
 .btn-play {
-    border: none;
-    border-radius: 100px;
-    padding: 10px 15px 10px 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    cursor: pointer;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 15px 10px 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .score {
+    font-size: 1.2rem;
+  }
+
+  .score--value {
+    font-size: 3rem;
+  }
+
+  .game-over {
+    font-size: 2rem;
+  }
+
+  .final-score {
+    font-size: 1.2rem;
+  }
+
+  .btn-play {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  canvas {
+    max-width: 700px; /* aumenta o canvas no desktop */
+  }
 }
