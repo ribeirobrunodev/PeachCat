@@ -24,7 +24,7 @@ ComidaImg.src = "./src/assets/maki.png";
 
 // 🆗 GATINHO COMO COBRA
 const catImg = new Image();
-catImg.src = "./src/assets/gat2.gif";
+catImg.src = "./src/assets/cat2.gif";
 
 
 
