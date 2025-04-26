@@ -18,9 +18,23 @@ let direction, loopId;
 const background = new Image();
 background.src = "./src/assets/tela.jpeg";
 
-// ✅ GATINHO COMO COBRA
+// ✅ COMIDA
+const ComidaImg = new Image();
+ComidaImg.src = "./src/assets/maki.png";
+
+// 🆗 GATINHO COMO COBRA
 const catImg = new Image();
 catImg.src = "./src/assets/gat2.gif";
+
+
+
+// ✅ ARRAY DE IMAGENS DE GATO
+const catImages = [
+  "./src/assets/maki.png",
+  "./src/assets/prawn.png",
+  "./src/assets/meat.png",
+  "./src/assets/catfood.png",
+];
 
 const randomNumber = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
@@ -49,7 +63,7 @@ const drawBackground = () => {
 };
 
 const drawFood = () => {
-  ctx.drawImage(catImg, food.x, food.y, size, size);
+  ctx.drawImage(ComidaImg, food.x, food.y, size, size);
 };
 
 const drawSnake = () => {
@@ -97,6 +111,10 @@ const checkEat = () => {
     snake.push(head);
     audio.play();
 
+    // Trocar imagem do gato aleatoriamente
+    const randomIndex = Math.floor(Math.random() * catImages.length);
+    ComidaImg.src = catImages[randomIndex];
+
     let x = randomPosition();
     let y = randomPosition();
     while (snake.find((pos) => pos.x === x && pos.y === y)) {
@@ -139,7 +157,7 @@ const gameLoop = () => {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground();
-  // drawGrid()
+  //drawGrid()
   drawFood();
   moveSnake();
   drawSnake();
