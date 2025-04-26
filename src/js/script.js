@@ -31,9 +31,11 @@ catImg.src = "./src/assets/cat2.gif";
 // ✅ ARRAY DE IMAGENS DE GATO
 const catImages = [
   "./src/assets/maki.png",
-  "./src/assets/prawn.png",
-  "./src/assets/meat.png",
-  "./src/assets/catfood.png",
+  "./src/assets/2.gif",
+  "./src/assets/calfood.png",
+  "./src/assets/4.gif",
+  "./src/assets/5.gif",
+  "./src/assets/6.gif",
 ];
 
 const randomNumber = (min, max) => {
